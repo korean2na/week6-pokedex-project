@@ -1,0 +1,48 @@
+{% extends './layout.html.j2' %}
+
+{% block title %}Register{% endblock title %}
+
+{% block content %}
+    <h1>Register</h1>
+    <br>
+    <p>* denotes a required field</p>
+    <br>
+    <form action="{{ url_for('auth.register') }}" method="POST">
+        {# NEXT PAGE LINE #}
+        <input type="hidden" name="next" value="{{ request.args.get('next', '') }}">
+        <div class="mb-3">
+            <label for="email" class="form-label">Email address*</label>
+            <input type="email" class="form-control" id="email" name="email">
+            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+        </div>
+        <div class="mb-3">
+            <label for="username" class="form-label">Username*</label>
+            <input type="text" class="form-control" id="username" name="username">
+            <div id="usernameHelp" class="form-text">Usernames are NOT case-sensitive.</div>
+        </div>
+        <div class="mb-3">
+            <label for="firstName" class="form-label">First Name*</label>
+            <input type="text" class="form-control" id="firstName" name="firstName">
+        </div>
+        <div class="mb-3">
+            <label for="lastName" class="form-label">Last Name*</label>
+            <input type="text" class="form-control" id="lastName" name="lastName">
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password*</label>
+            <input type="password" class="form-control" id="password" name="password">
+            <div id="passwordHelp" class="form-text">Passwords ARE case-sensitive.</div>
+        </div>
+        <div class="mb-3">
+            <label for="confirmPassword" class="form-label">Confirm Password*</label>
+            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword">
+        </div>
+        <div class="mb-3">
+            <label for="passHint" class="form-label">Hint for Password</label>
+            <input type="text" class="form-control" id="passHint" name="passHint">
+            <div id="hintHelp" class="form-text">(Max. 200 characters)</div>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+{% endblock content %}

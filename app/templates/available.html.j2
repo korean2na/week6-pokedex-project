@@ -1,0 +1,37 @@
+{% extends './layout.html.j2' %}
+
+{% block title %}Available Pokémon{% endblock title %}
+
+{% block content %}
+<h1>Available Pokémon</h1>
+<br>
+    {% for poke in pokes %}
+        {% if poke.nickname != '' %}
+            <h3>{{ poke.nickname }} ({{ poke.name.title() }})</h3>
+        {% else %}
+            <h3>{{ poke.name.title() }}</h3>
+        {% endif %}
+        <h5>ID # {{ poke.id }}</h5>
+        <div class="px-5">
+            <p>Pokémon #: {{ poke.poke_num }}</p>
+            <p>Type 1: {{ poke.type1.title() }}</p>
+            {% if poke.type2 == None %}
+                <p>Type 2: None</p>
+            {% else %}
+                <p>Type 2: {{ poke.type2.title() }}</p>
+            {% endif %}
+            {% if poke.description == '' %}
+                <p>Description: None</p>
+            {% else %}
+                <p>Description: {{ poke.description }}</p>
+            {% endif %}
+            <p>Date Entered: {{ poke.date_created }}</p>
+        </div>
+        <br>
+        <form action="{{ url_for('dex.collect') }}" method="POST">
+            <input type="hidden" class="form-control" id="collectID" name="collectID" value="{{ poke.id }}">
+            <button type="submit" class="btn btn-primary">Collect {{ poke.name.title() }}</button>
+        </form>
+        <br><br>
+    {% endfor %}
+{% endblock content %}

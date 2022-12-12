@@ -1,0 +1,25 @@
+{% extends './layout.html.j2' %}
+
+{% block title %}Add a New Pokémon{% endblock title %}
+
+{% block content %}
+<h1>Add a New Pokémon</h1>
+<br>
+<form action="{{ url_for('dex.new_pokemon') }}" method="POST">
+    <div class="mb-3">
+        <label for="name" class="form-label">Pokéname</label>
+        <div id="nameHelp" class="form-text">(Examples: pikachu, snorlax, charizard)</div>
+        <input type="text" class="form-control" id="name" name="name">
+    </div>
+    <div class="mb-3">
+        <label for="nickname" class="form-label">Nickname</label>
+        <input type="text" class="form-control" id="nickname" name="nickname">
+    </div>
+    <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <input type="text" class="form-control" id="description" name="description">
+    </div>
+    <br>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock content %}

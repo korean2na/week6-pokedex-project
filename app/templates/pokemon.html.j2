@@ -1,0 +1,37 @@
+{% extends './layout.html.j2' %}
+
+{% block title %}All Pokémon{% endblock title %}
+
+{% block content %}
+<h1>All Pokémon</h1>
+<br>
+    {% for poke in pokes %}
+        {% if poke.nickname != '' %}
+            <h3>{{ poke.nickname }} ({{ poke.name.title() }})</h3>
+        {% else %}
+            <h3>{{ poke.name.title() }}</h3>
+        {% endif %}
+        <h5>ID # {{ poke.id }}</h5>
+        <div class="px-5">
+            <p>Pokémon #: {{ poke.poke_num }}</p>
+            <p>Type 1: {{ poke.type1.title() }}</p>
+            {% if poke.type2 == None %}
+                <p>Type 2: None</p>
+            {% else %}
+                <p>Type 2: {{ poke.type2.title() }}</p>
+            {% endif %}
+            {% if poke.description == '' %}
+                <p>Description: None</p>
+            {% else %}
+                <p>Description: {{ poke.description }}</p>
+            {% endif %}
+            {% if poke.owner_id == None %}
+                <p>=~=~= This Pokémon is currently unowned. =~=~=</p>
+            {% else %}
+                <p>Owner: {{ poke.owner.username }} ({{ poke.owner.first_name }} {{ poke.owner.last_name }})</p>
+            {% endif %}
+            <p>Date Entered: {{ poke.date_created }}</p>
+        </div>
+        <br><br>
+    {% endfor %}
+{% endblock content %}

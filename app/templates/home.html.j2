@@ -1,0 +1,14 @@
+{% extends './layout.html.j2' %}
+
+{% block title %}PokéHome{% endblock title %}
+
+{% block content %}
+    <h1>PokéHome </h1>
+    <br>
+    <div class="d-grid col-3 px-4 mx-4 gap-4">
+        <a href="{{ url_for('dex.pokemon') }}" class="btn btn-primary btn-lg">All Pokémon</a>
+        <a href="{{ url_for('dex.available') }}" class="btn btn-primary btn-lg">Available Pokémon</a>
+        <a href="{{ url_for('dex.collection') }}" class="btn btn-primary btn-lg">Your Pokémon Collection</a>
+        <a href="{{ url_for('dex.new_pokemon') }}" class="btn btn-primary btn-lg">Add a New Pokémon to Available</a>
+    </div>
+{% endblock content %}
