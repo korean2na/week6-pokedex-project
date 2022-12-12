@@ -6,21 +6,34 @@ from app.blueprints.dex.models import Pokemon
 from flask_login import current_user, login_required
 import requests
 
+def id_filter(x):
+    return x.id
+
+def name_filter(x):
+    return x.name
+
+def nick_filter(x):
+    return x.nickname
+
 @bp.route('/pokemon')
 def pokemon():
     pokes = Pokemon.query.all()
+    pokes.sort(key=id_filter)
     return render_template('pokemon.html.j2', pokes=pokes)
 
 @bp.route('/pokemon/available')
 @login_required
 def available():
     pokes = Pokemon.query.filter_by(owner_id=None).all()
+    pokes.sort(key=id_filter)
     return render_template('available.html.j2', pokes=pokes)
 
 @bp.route('/collection')
 @login_required
 def collection():
     pokes = Pokemon.query.filter_by(owner_id=current_user.id).all()
+    pokes.sort(key=nick_filter)
+    pokes.sort(key=name_filter)
     return render_template('collection.html.j2', pokes=pokes)
 
 @bp.route('/new_pokemon', methods=['GET', 'POST'])

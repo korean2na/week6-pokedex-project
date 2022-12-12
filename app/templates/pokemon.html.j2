@@ -5,33 +5,41 @@
 {% block content %}
 <h1>All Pokémon</h1>
 <br>
-    {% for poke in pokes %}
-        {% if poke.nickname != '' %}
-            <h3>{{ poke.nickname }} ({{ poke.name.title() }})</h3>
-        {% else %}
-            <h3>{{ poke.name.title() }}</h3>
-        {% endif %}
-        <h5>ID # {{ poke.id }}</h5>
-        <div class="px-5">
-            <p>Pokémon #: {{ poke.poke_num }}</p>
-            <p>Type 1: {{ poke.type1.title() }}</p>
-            {% if poke.type2 == None %}
-                <p>Type 2: None</p>
-            {% else %}
-                <p>Type 2: {{ poke.type2.title() }}</p>
-            {% endif %}
-            {% if poke.description == '' %}
-                <p>Description: None</p>
-            {% else %}
-                <p>Description: {{ poke.description }}</p>
-            {% endif %}
-            {% if poke.owner_id == None %}
-                <p>=~=~= This Pokémon is currently unowned. =~=~=</p>
-            {% else %}
-                <p>Owner: {{ poke.owner.username }} ({{ poke.owner.first_name }} {{ poke.owner.last_name }})</p>
-            {% endif %}
-            <p>Date Entered: {{ poke.date_created }}</p>
-        </div>
-        <br><br>
-    {% endfor %}
+<div class="container text-center">
+    <div class="row row-cols-3 justify-content-between">
+        {% for poke in pokes %}
+            <div class="border-5 py-3">
+                <div class="col card border-warning py-5">
+                    {% if poke.nickname != '' %}
+                        <h3>{{ poke.nickname }} ({{ poke.name.title() }})</h3>
+                    {% else %}
+                        <h3>{{ poke.name.title() }}</h3>
+                    {% endif %}
+                    <h5>ID # {{ poke.id }}</h5>
+                    <div class="px-5">
+                        <img src="{{ poke.sprite }}" alt="{{ poke.name }} sprite">
+                        <p>Pokémon #: {{ poke.poke_num }}</p>
+                        <p>Type 1: {{ poke.type1.title() }}</p>
+                        {% if poke.type2 == None %}
+                            <p>Type 2: None</p>
+                        {% else %}
+                            <p>Type 2: {{ poke.type2.title() }}</p>
+                        {% endif %}
+                        {% if poke.description == '' %}
+                            <p>Description: None</p>
+                        {% else %}
+                            <p>Description: {{ poke.description }}</p>
+                        {% endif %}
+                        {% if poke.owner_id == None %}
+                            <p>=~=~= Currently Unowned =~=~=</p>
+                        {% else %}
+                            <p>Owner: {{ poke.owner.username }} ({{ poke.owner.first_name }} {{ poke.owner.last_name }})</p>
+                        {% endif %}
+                        <p>Date Entered: {{ poke.date_created }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
 {% endblock content %}

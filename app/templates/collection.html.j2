@@ -5,54 +5,64 @@
 {% block content %}
 <h1>Your Pokémon Collection</h1>
 <br>
-    {% for poke in pokes %}
-        {% if poke.nickname != '' %}
-            <h3>{{ poke.nickname }} ({{ poke.name.title() }})</h3>
-        {% else %}
-            <h3>{{ poke.name.title() }}</h3>
-        {% endif %}
-        <h5>ID # {{ poke.id }}</h5>
-        <div class="px-5">
-            <p>Pokémon #: {{ poke.poke_num }}</p>
-            <p>Type 1: {{ poke.type1.title() }}</p>
-            {% if poke.type2 == None %}
-                <p>Type 2: None</p>
-            {% else %}
-                <p>Type 2: {{ poke.type2.title() }}</p>
-            {% endif %}
-            {% if poke.description == '' %}
-                <p>Description: None</p>
-            {% else %}
-                <p>Description: {{ poke.description }}</p>
-            {% endif %}
-            <p>Date Entered: {{ poke.date_created }}</p>
-        </div>
-        <br>
-        <form action="{{ url_for('dex.release') }}" method="POST">
-            <input type="hidden" class="form-control" id="releaseID" name="releaseID" value="{{ poke.id }}">
-            <button type="submit" class="btn btn-primary">Release {{ poke.name.title() }}</button>
-        </form>
-        <br>
-        <form action="{{ url_for('dex.rename') }}" method="POST">
-            <input type="hidden" class="form-control" id="renameID" name="renameID" value="{{ poke.id }}">
-            <div class="mb-3">
-                <label for="newNick" class="form-label">New Nickname</label>
-                <input type="text" class="form-control" id="newNick" name="newNick">
+<div class="container text-center">
+    <div class="row row-cols-3 justify-content-between">
+        {% for poke in pokes %}
+            <div class="border-5 py-3">
+                <div class="col card border-warning py-5">
+                    {% if poke.nickname != '' %}
+                        <h3>{{ poke.nickname }} ({{ poke.name.title() }})</h3>
+                    {% else %}
+                        <h3>{{ poke.name.title() }}</h3>
+                    {% endif %}
+                    <h5>ID # {{ poke.id }}</h5>
+                    <div class="px-5">
+                        <img src="{{ poke.sprite }}" alt="{{ poke.name }} sprite">
+                        <p>Pokémon #: {{ poke.poke_num }}</p>
+                        <p>Type 1: {{ poke.type1.title() }}</p>
+                        {% if poke.type2 == None %}
+                            <p>Type 2: None</p>
+                        {% else %}
+                            <p>Type 2: {{ poke.type2.title() }}</p>
+                        {% endif %}
+                        {% if poke.description == '' %}
+                            <p>Description: None</p>
+                        {% else %}
+                            <p>Description: {{ poke.description }}</p>
+                        {% endif %}
+                        <p>Date Entered: {{ poke.date_created }}</p>
+                    <br>
+                    <form action="{{ url_for('dex.rename') }}" method="POST">
+                        <input type="hidden" class="form-control" id="renameID" name="renameID" value="{{ poke.id }}">
+                        <div class="mb-3">
+                            <label for="newNick" class="form-label">New Nickname</label>
+                            <input type="text" class="form-control border-warning" id="newNick" name="newNick">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                    <br><hr><br>
+                    <form action="{{ url_for('dex.redesc') }}" method="POST">
+                        <input type="hidden" class="form-control" id="redescID" name="redescID" value="{{ poke.id }}">
+                        <div class="mb-3">
+                            <label for="newDesc" class="form-label">New Description</label>
+                            <input type="text" class="form-control border-warning" id="newDesc" name="newDesc">
+                            <div id="descHelp" class="form-text">(Max. 500 characters)</div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                    <br><hr><br>
+                    <form action="{{ url_for('dex.release') }}" method="POST">
+                        <input type="hidden" class="form-control" id="releaseID" name="releaseID" value="{{ poke.id }}">
+                        {% if poke.nickname != '' %}
+                            <button type="submit" class="btn btn-danger">Release {{ poke.nickname }}</button>
+                        {% else %}
+                            <button type="submit" class="btn btn-danger">Release {{ poke.name.title() }}</button>
+                        {% endif %}
+                    </form>
+                    </div>
+                </div>
             </div>
-            <br>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-        <br>
-        <form action="{{ url_for('dex.redesc') }}" method="POST">
-            <input type="hidden" class="form-control" id="redescID" name="redescID" value="{{ poke.id }}">
-            <div class="mb-3">
-                <label for="newDesc" class="form-label">New Description</label>
-                <input type="text" class="form-control" id="newDesc" name="newDesc">
-                <div id="descHelp" class="form-text">(Max. 500 characters)</div>
-            </div>
-            <br>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-        <br><br>
-    {% endfor %}
+        {% endfor %}
+    </div>
+</div>
 {% endblock content %}

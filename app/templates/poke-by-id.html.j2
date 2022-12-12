@@ -12,6 +12,7 @@
     <br>
     <h5>ID # {{ poke.id }}</h5>
     <div class="px-5">
+        <img src="{{ poke.sprite }}" alt="{{ poke.name }} sprite">
         <p>Pokémon #: {{ poke.poke_num }}</p>
         <p>Type 1: {{ poke.type1.title() }}</p>
         {% if poke.type2 == None %}
