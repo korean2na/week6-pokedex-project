@@ -111,6 +111,7 @@ def reset_password():
     curr_pass = request.form['currPass']
     new_pass = request.form['newPass']
     confirm_new = request.form['confirmNew']
+    pass_hint = request.form['passHint']
 
     if not current_user.check_my_password(curr_pass):
         flash('Old password was incorrect.', 'danger')
@@ -120,8 +121,14 @@ def reset_password():
 
     else:
         current_user.hash_my_password(new_pass)
+        current_user.pw_hint = pass_hint
         db.session.add(current_user)
         db.session.commit()
         flash('Password changed successfully!', 'success')
 
     return render_template('reset-password.html.j2')
+
+@bp.route('/hint')
+@login_required
+def hint():
+    return render_template('hint.html.j2')
